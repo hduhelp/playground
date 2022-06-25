@@ -8,4 +8,6 @@
 
 ## 项目简介
 
+- [ ] **simple-gorm** gorm 框架的基础使用 
+- [ ] **simple-gin** gin 框架的基础使用 
 - [ ] **simple-tiktok** 比较综合的项目，难度较高
