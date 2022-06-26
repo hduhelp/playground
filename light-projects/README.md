@@ -8,6 +8,8 @@
 
 ## 项目简介
 
+- [ ] **simple-qq-bot** 使用 go 搭建一个 qq 机器人
+- [ ] **simple-tcp-client-server** 简单的 tcp 通信
 - [ ] **simple-gorm** gorm 框架的基础使用 
 - [ ] **simple-gin** gin 框架的基础使用 
 - [ ] **simple-tiktok** 比较综合的项目，难度较高
