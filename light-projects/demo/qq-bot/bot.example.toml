@@ -1,0 +1,10 @@
+# 示例配置文件
+[bot]
+uin = 88888888            # QQ机器人的 QQ号
+passwd = "demo_passsword" # 机器人的 QQ密码
+
+[group] # QQ群
+demo_QQ_Group = 1234567890
+
+[friend] # QQ好友
+demo_QQ_Friend= 1234567890
