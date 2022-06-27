@@ -7,3 +7,4 @@
 *.yml
 
 *_test.go
+*.json

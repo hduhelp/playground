@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
 
@@ -10,6 +11,15 @@ import (
 	"github.com/Mrs4s/MiraiGo/message"
 	"github.com/spf13/viper"
 )
+
+func init() {
+	viper.SetConfigName("bot")
+	viper.SetConfigType("toml")
+	viper.AddConfigPath(".")
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatal(err)
+	}
+}
 
 func main() {
 	bot := client.NewClient(viper.GetInt64("bot.uin"), viper.GetString("bot.passwd"))
@@ -61,6 +71,11 @@ func main() {
 	})
 
 	// ...可选功能实现
+	_block()
+}
+
+func _block() {
+	select {}
 }
 
 func getCity(msgElem message.IMessageElement) string {
