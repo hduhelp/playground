@@ -6,6 +6,18 @@
 
 根据项目中的 `README.md` 来完成项目
 
-## 项目简介
+## 项目列表
 
+- [ ] **simple-qq-bot** 使用 go 搭建一个 qq 机器人
+- [ ] **simple-tcp-client-server** 简单的 tcp 通信
+- [ ] **simple-gorm** gorm 框架的基础使用 
+- [ ] **simple-gin** gin 框架的基础使用 
+- [ ] **simple-tiktok** 比较综合的项目，难度较高
+
+## 项目 demo
+
+- [ ] **simple-qq-bot** 使用 go 搭建一个 qq 机器人
+- [ ] **simple-tcp-client-server** 简单的 tcp 通信
+- [ ] **simple-gorm** gorm 框架的基础使用 
+- [ ] **simple-gin** gin 框架的基础使用 
 - [ ] **simple-tiktok** 比较综合的项目，难度较高
