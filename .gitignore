@@ -6,4 +6,4 @@
 *.yaml
 *.yml
 
-*.test.go
+*_test.go
