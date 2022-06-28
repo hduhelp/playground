@@ -46,6 +46,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "enter":
+			// TODO: 空指针排查
 			if _, err := m.conn.Write([]byte(m.textInput.Value())); err != nil {
 				m.textInput.Reset()
 				return m, func() tea.Msg {
@@ -66,6 +67,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	b := "TcpClient powered by sslime336 with BubbleTea\n\n"
+	// TODO: 修复无法显示收到内容的 bug
 	for _, msg := range m.historyMsg {
 		b += msg + "\n"
 	}
