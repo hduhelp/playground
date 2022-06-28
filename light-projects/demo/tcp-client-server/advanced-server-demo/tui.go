@@ -46,10 +46,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "enter":
+			// TODO: 修复发送消息的 bug 具体为多个 client 连接后，无法接收其他信息
 			// 广播消息
 			for connAddr, cn := range m.connections {
 				if _, err := cn.Write([]byte(m.textInput.Value())); err != nil {
 					delete(m.connections, connAddr)
+					m.textInput.Reset()
 					return m, func() tea.Msg {
 						return err
 					}

@@ -23,7 +23,7 @@ func main() {
 				log.Println("accept connection failed:", err)
 			}
 
-			handle(conn)
+			go handle(conn)
 		}
 	}()
 
