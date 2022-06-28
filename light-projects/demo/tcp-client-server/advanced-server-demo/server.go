@@ -9,7 +9,7 @@ import (
 
 var p = tea.NewProgram(initialModel())
 
-func init() {
+func main() {
 	go func() {
 		ln, err := net.Listen("tcp", "127.0.0.1:23333")
 		if err != nil {
@@ -23,21 +23,42 @@ func init() {
 				log.Println("accept connection failed:", err)
 			}
 
-			p.Send(connection{
-				remoteAddr: conn.RemoteAddr().String(),
-				conn:       conn,
-			})
+			handle(conn)
 		}
 	}()
-}
 
-type connection struct {
-	remoteAddr string
-	conn       net.Conn
-}
-
-func main() {
 	if err := p.Start(); err != nil {
 		log.Fatal("boot tui failed:", err)
+	}
+}
+
+type msgPack struct {
+	net.Conn
+
+	addr string // 发送者的地址
+	data []byte
+}
+
+func handle(conn net.Conn) {
+	defer func() {
+		if err := recover(); err != nil {
+			p.Send(err)
+		}
+	}()
+
+	buf := make([]byte, 512)
+	for {
+		n, err := conn.Read(buf)
+		if err != nil {
+			panic(err)
+		}
+
+		if n != 0 {
+			p.Send(msgPack{
+				Conn: conn,
+				addr: conn.RemoteAddr().String(),
+				data: buf[:n],
+			})
+		}
 	}
 }
