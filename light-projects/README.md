@@ -16,8 +16,8 @@
 
 ## 项目 demo
 
-- [ ] **simple-qq-bot** 使用 go 搭建一个 qq 机器人
-- [ ] **simple-tcp-client-server** 简单的 tcp 通信
+- [x] **simple-qq-bot** 使用 go 搭建一个 qq 机器人
+- [x] **simple-tcp-client-server** 简单的 tcp 通信
 - [ ] **simple-gorm** gorm 框架的基础使用 
 - [ ] **simple-gin** gin 框架的基础使用 
-- [ ] **simple-tiktok** 比较综合的项目，难度较高
+- [x] **simple-tiktok** 比较综合的项目，难度较高 可参考原项目(才不是懒得写了呢，哼:stuck_out_tongue_closed_eyes:)
