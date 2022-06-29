@@ -9,6 +9,7 @@ import (
 )
 
 var p = tea.NewProgram(initialModel())
+var conn net.Conn
 
 func main() {
 	defer func() {
@@ -18,7 +19,8 @@ func main() {
 		}
 	}()
 
-	conn, err := net.Dial("tcp", "127.0.0.1:23333")
+	var err error
+	conn, err = net.Dial("tcp", "127.0.0.1:23333")
 	if err != nil {
 		panic(err)
 	}
@@ -26,11 +28,18 @@ func main() {
 
 	data := make([]byte, 1024)
 	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+				os.Exit(1)
+			}
+		}()
 		for {
 			n, err := conn.Read(data)
 			if err != nil {
-				log.Println(err)
+				panic(err)
 			}
+
 			if n != 0 {
 				p.Send(msgPack{
 					Conn: conn,

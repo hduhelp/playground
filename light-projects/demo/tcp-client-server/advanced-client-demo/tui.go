@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"net"
+	"log"
+	"os"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -11,7 +12,6 @@ import (
 type model struct {
 	historyMsg []string
 	textInput  textinput.Model
-	conn       net.Conn
 }
 
 func initialModel() model {
@@ -23,7 +23,6 @@ func initialModel() model {
 	return model{
 		historyMsg: []string{},
 		textInput:  ti,
-		conn:       nil,
 	}
 }
 
@@ -32,22 +31,24 @@ func (m model) Init() tea.Cmd {
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println(err)
+			os.Exit(1)
+		}
+	}()
 	var cmd tea.Cmd
 
 	switch msg := msg.(type) {
 	case error:
-		m.historyMsg = append(m.historyMsg, msg.Error())
+		panic(msg)
 	case msgPack:
-		if m.conn == nil {
-			m.conn = msg.Conn
-		}
 		m.historyMsg = append(m.historyMsg, fmt.Sprintf("FROM %s: %s", msg.addr, string(msg.data)))
 
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "enter":
-			// TODO: 空指针排查
-			if _, err := m.conn.Write([]byte(m.textInput.Value())); err != nil {
+			if _, err := conn.Write([]byte(m.textInput.Value())); err != nil {
 				m.textInput.Reset()
 				return m, func() tea.Msg {
 					return err
@@ -67,7 +68,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	b := "TcpClient powered by sslime336 with BubbleTea\n\n"
-	// TODO: 修复无法显示收到内容的 bug
+	// TODO: 修复服务器断线后疯狂刷新空消息的bug
 	for _, msg := range m.historyMsg {
 		b += msg + "\n"
 	}
